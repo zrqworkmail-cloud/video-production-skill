@@ -6,6 +6,16 @@ Read when preparing image/video assets, motion prompts, or local-model generatio
 
 Use the project's existing record format. Include the shot ID and narrative purpose; source/reference asset versions; framing and camera intent; start state; main action with preparation, action, consequence and settle/hold; end state and next-shot handoff; continuity locks; sound intent; and the specific failure conditions to inspect.
 
+Example of a four-second action plan (adapt timing to the scene; this is not a universal model prompt):
+
+| Time | Visible event | Review criterion |
+| --- | --- | --- |
+| 0–1 s | Subject holds a cup beside a table; gaze rests on the cup. | Establish a stable start pose and hand/cup contact. |
+| 1–3 s | Subject slowly lowers the cup until its base contacts the tabletop. | Continuous forearm movement, stable grip and cup shape, no intersection with the table. |
+| 3–4 s | Cup stays on the table; fingers release and settle beside it. | Contact changes once, cup remains stationary, end pose is usable for the cut. |
+
+Camera stays locked; light direction and background remain stable. If a model cannot resolve release/contact reliably, test a shorter action that ends on contact or supply compatible pose/end-frame conditioning. Do not compress the same action into too few frames merely to make a fast test. This plan controls intent; it does not guarantee exact generated timing.
+
 Separate these three inputs:
 
 - **Asset description:** identity, appearance, clothing or materials, scene geometry, light and style. Make image assets with enough framing margin and resolution for intended camera movement or extraction. Use stable references for recurring subjects. A cutout or layered element must have usable edges, contact shadows where appropriate, and sufficient off-frame extent to avoid severed limbs or props during motion.
@@ -25,6 +35,8 @@ Select detail by risk. For a hand-object shot, describe contact and limited trav
 ## Generate and compare
 
 Check official workflow/model compatibility, required files and installed versions before running. Probe service/queue state and available memory, disk and relevant telemetry. On a shared device, defer GPU submissions while another workload occupies it unless sharing is explicitly authorized and feasible. Preserve other jobs and append only this task's jobs to the appropriate queue.
+
+Inspect the actual execution payload or workflow, not only its displayed labels: confirm the intended reference files, conditioning inputs, prompt nodes, model components, dimensions and frame/rate settings reach the output path. Record the submitted job ID and actual outputs when supported. A saved graph is prepared work; a queue acknowledgment is a submission; completion requires the resulting media and its review.
 
 Choose a short test that still contains the complete intended action. Very short, low-resolution or heavily distilled tests can change the action and perceived quality; label them as feasibility tests rather than substitutes for the final configuration. Use one job/batch first when resource requirements are unmeasured. Do not invent a memory or temperature threshold; use applicable device guidance, existing controls and observed measurements.
 
